@@ -1,23 +1,65 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, ActivityIndicator } from 'react-native';
+import { StackNavigator, TabNavigator } from 'react-navigation';
+import { Feed, Comments } from './src/components/Home';
+import { Login, Signup, Verify } from './src/components/Auth';
 
 export default class App extends React.Component {
+  state = {
+    authStatusReported: false,
+    isUserAuthenticated: false,
+    user: {}
+  }
+  componentDidMount(){
+    AsyncStorage.getItem('user', (value) => {
+      this.setState({
+        authStatusReported: true,
+      });
+      if(!value){
+        alert('User not logged in!')
+      }
+      const user = JSON.parse(value);
+      this.setState({ isUserAuthenticated: true, user: user });
+    });
+  }
   render() {
+    const { authStatusReported, isUserAuthenticated } = this.state;
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      (authStatusReported)
+        ?
+          isUserAuthenticated
+            ?
+              <Application />
+            :
+              <Login />
+        :
+          <View style={styles.loadingView}>
+            <ActivityIndicator />
+          </View>
     );
   }
 }
 
+const Auth = StackNavigator({
+  Login: { screen: Login },
+  Signup: { screen: Signup },
+  Verify: { screen: Verify }
+});
+
+const Home = TabNavigator({
+  Feed: { screen: Feed },
+  Comments: { screen: Comments }
+});
+
+const Application = StackNavigator({
+  Auth: { screen: Auth },
+  Home: { screen: Home }
+});
+
 const styles = StyleSheet.create({
-  container: {
+  loadingView: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
+    justifyContent: 'center'
+  }
 });
