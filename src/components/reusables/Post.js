@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons/Ionicons';
 
 export default class Post extends Component {
@@ -24,7 +24,7 @@ export default class Post extends Component {
           <TouchableOpacity onPress={this.addLike}>
             <Ionicons />
           </TouchableOpacity>
-          <TouchableOpacity onPress={ () => navigate('Comment', { id: id }) }>
+          <TouchableOpacity onPress={ () => navigate('Comments', { id: id }) }>
           </TouchableOpacity>
           <TouchableOpacity>
           </TouchableOpacity>
@@ -34,4 +34,15 @@ export default class Post extends Component {
   }
 }
 
-const styles = StyleSheet.create({})
+let { width, height } = Dimensions.get('window'); 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'flex-start',
+    width: width - 20
+  },
+  postContainer: {},
+  postHeader: {},
+  postContent: {},
+  postActions: {}
+});

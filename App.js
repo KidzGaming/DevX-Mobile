@@ -4,6 +4,8 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 import { Feed, Comments } from './src/components/Home';
 import { Login, Signup, Verify } from './src/components/Auth';
 
+// import { Post } from './src/components/reusables';
+
 export default class App extends React.Component {
   state = {
     authStatusReported: false,
@@ -39,6 +41,11 @@ export default class App extends React.Component {
     );
   }
 }
+
+// const Poster = StackNavigator({
+//   Post: { screen: Post },
+//   Comments: { screen: Comments }
+// });
 
 const Auth = StackNavigator({
   Login: { screen: Login },

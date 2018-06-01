@@ -33,7 +33,7 @@ export default class Feed extends Component {
     return (
       loading
         ?
-          <View style={styles.container}>
+          <View style={styles.loadingContainer}>
             <ActivityIndicator />
           </View>
         :
@@ -53,10 +53,16 @@ export default class Feed extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  loadingContainer: {
     flex: 1,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center'
+    // justifyContent: 'center'
   }
 });
